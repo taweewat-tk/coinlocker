@@ -3,7 +3,7 @@
     <div>
       <Logo />
       <h1 class="title">
-        coin-locker.
+        coin-locker
       </h1>
       <div class="links">
         <a
