@@ -1,7 +1,7 @@
 # coin-locker
 
 ## Build Setup
-
+test
 ```bash
 # install dependencies
 $ npm install
