@@ -5,6 +5,14 @@
 </template>
 
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Roboto&display=swap');
+
+.kanit{
+  font-family: 'Kanit', sans-serif;
+}
+.bold{
+  font-weight: bold;
+}
 html {
   font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, "Helvetica Neue", Arial, sans-serif;

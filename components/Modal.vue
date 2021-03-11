@@ -8,7 +8,7 @@
     @hidden="onReset"
     @ok="onSubmit"
   >
-    <div class="row justify-content-center">
+    <div class="row justify-content-center kanit">
       <b-form class="col-11" @submit="onSubmit" @reset="onReset">
         <b-form-group id="input-group-1" label="Duration time to deposit (Hours:minutes):" label-for="duration">
           <!-- <label for="duration">Duration of deposit:</label> -->
@@ -93,7 +93,18 @@ export default {
         unit_name: '',
         amount: null
       },
-      unit: {}
+      unit: {
+        cost: '',
+        deposit_date: '',
+        is_empty: null,
+        name: '',
+        rate: null,
+        rate_next_min: null,
+        return_date: '',
+        size: '',
+        username: '',
+        _id: null
+      }
     }
   },
   created () {
@@ -103,8 +114,8 @@ export default {
   methods: {
     // get data from parent component and show modal
     showModal (item) {
-      console.log(item)
       this.unit = item
+      console.log(this.unit)
       this.$root.$emit('bv::show::modal', 'modal1')
     },
     onSubmit (event) {
@@ -136,16 +147,17 @@ export default {
     //   console.log(minHours)
     //   console.log(min)
     //   console.log(this.unit.size)
-      let cost
-      if (this.unit.size === 'S') {
-        cost = ((minHours / 60) * 50) + (min * 25)
-      } else if (this.unit.size === 'M') {
-        cost = ((minHours / 60) * 100) + (min * 50)
-      } else if (this.unit.size === 'L') {
-        cost = ((minHours / 60) * 200) + (min * 100)
-      } else {
-        console.log('error size')
-      }
+      const cost = ((minHours / 60) * this.unit.rate) + (min * this.unit.rate_next_min)
+
+      // if (this.unit.size === 'S') {
+      //   cost = ((minHours / 60) * this.unit.rate) + (min * this.unit.rate_next_min)
+      // } else if (this.unit.size === 'M') {
+      //   cost = ((minHours / 60) * this.unit.rate) + (min * this.unit.rate_next_min)
+      // } else if (this.unit.size === 'L') {
+      //   cost = ((minHours / 60) * this.unit.rate) + (min * this.unit.rate_next_min)
+      // } else {
+      //   console.log('error size')
+      // }
       this.form.amount = cost
     }
     // formatTime (_time) {

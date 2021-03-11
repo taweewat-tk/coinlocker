@@ -14,19 +14,38 @@
     <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
     <b-button href="#" variant="primary">Go somewhere</b-button>
   </b-card>-->
-  <div>
+  <div class="kanit">
     <b-card
-      :border-variant="unitInfo.color"
+      border-variant="primary"
       :header="unitInfo.name"
-      :header-bg-variant="unitInfo.color"
+      header-bg-variant="primary"
       header-text-variant="white"
-      align="center"
+      header-class="text-center bold"
+      align="left"
     >
-      <b-card-text>Status : {{ unitInfo.status }}</b-card-text>
-      <!-- <b-button variant="outline-primary">Selected</b-button> -->
-      <b-button variant="outline-primary" @click="modal()">
-        Selected
-      </b-button>
+      <b-card-text>
+        <div v-if="unitInfo.is_empty === true">
+          Status : <span class="bold">Available</span>
+        </div>
+        <div v-if="unitInfo.is_empty === false">
+          Status : <span class="bold">Unavailable</span>
+        </div>
+        <div>
+          Size : {{ unitInfo.size }}
+        </div>
+        <div>
+          First 60 minutes : {{ unitInfo.rate }} Bath
+        </div>
+        <div>
+          Next minutes : {{ unitInfo.rate_next_min }} Bath
+        </div>
+      </b-card-text>
+
+      <div class="text-center">
+        <b-button variant="outline-primary" @click="modal()">
+          Selected
+        </b-button>
+      </div>
       <!-- <b-button disabled variant="outline-secondary">Used</b-button>
       <b-button variant="outline-success">Empty</b-button>-->
     </b-card>
@@ -41,6 +60,9 @@ export default {
     return {
       unit_detail: ''
     }
+  },
+  created () {
+    console.log(this.unitInfo)
   },
   methods: {
     // emit data to call function of parent component
