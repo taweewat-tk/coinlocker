@@ -1,4 +1,11 @@
 export default {
+  /*
+   ** Runtime Config
+   */
+
+  publicRuntimeConfig: {
+    baseURL: 'http://127.0.0.1:3333'
+  },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
     title: 'coin-locker',
@@ -35,8 +42,13 @@ export default {
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
     // https://go.nuxtjs.dev/bootstrap
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    '@nuxtjs/axios'
   ],
+  axios: {
+    // proxy: true
+    // BaseURL: 'http://127.0.0.1:3333/'
+  },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
