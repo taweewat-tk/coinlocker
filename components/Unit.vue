@@ -25,10 +25,10 @@
     >
       <b-card-text>
         <div v-if="unitInfo.is_empty === true">
-          Status : <span class="bold">Available</span>
+          Status : <span class="bold text-green">Available</span>
         </div>
         <div v-if="unitInfo.is_empty === false">
-          Status : <span class="bold">Unavailable</span>
+          Status : <span class="bold text-red">Unavailable</span>
         </div>
         <div>
           Size : {{ unitInfo.size }}
@@ -42,8 +42,14 @@
       </b-card-text>
 
       <div class="text-center">
-        <b-button variant="outline-primary" @click="modal()">
+        <b-button v-if="unitInfo.is_empty === true" variant="outline-primary" @click="modal('Deposit')">
           Selected
+        </b-button>
+        <b-button v-if="unitInfo.is_empty === false" variant="outline-secondary" disabled>
+          Selected
+        </b-button>
+        <b-button v-if="unitInfo.username === username" variant="outline-success" @click="modal('Withdraw')">
+          Withdraw
         </b-button>
       </div>
       <!-- <b-button disabled variant="outline-secondary">Used</b-button>
@@ -55,20 +61,30 @@
 <script>
 export default {
   name: 'Unit',
-  props: ['unitInfo'],
+  props: ['unitInfo', 'username'],
   data () {
     return {
       unit_detail: ''
     }
   },
   created () {
-    console.log(this.unitInfo)
   },
   methods: {
     // emit data to call function of parent component
-    modal () {
-      this.$emit('showModal', this.unitInfo)
+    modal (type) {
+      if (type === 'Deposit') { this.$emit('modalDeposit', this.unitInfo) } else {
+        this.$emit('modalWithdraw', this.unitInfo)
+      }
     }
   }
 }
 </script>
+
+<style>
+  .text-red{
+    color: #dc3545;
+  }
+  .text-green{
+    color: #28a745;
+  }
+</style>

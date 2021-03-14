@@ -22,10 +22,11 @@
         <h3 v-if="index == 2" class="text-center bold">
           {{ unit.size }}
         </h3>
-        <Unit :unit-info="unit" @showModal="showModal" />
+        <Unit :unit-info="unit" :username="username" @modalDeposit="modalDeposit" @modalWithdraw="modalWithdraw" />
       </div>
     </div>
-    <Modal ref="modal" />
+    <DepositModal ref="modal_d" :username="username" @response="getAllUnits" />
+    <WithdrawModal ref="modal_w" :username="username" @response="getAllUnits" />
   </div>
 </template>
 
@@ -41,7 +42,6 @@ export default {
     }
   },
   created () {
-    this.getLocker()
     // for (let i = 0; i < 12; i++) {
     //   let obj
     //   if (i === 0 || i === 3 || i === 6 || i === 9) {
@@ -70,6 +70,7 @@ export default {
     // }
   },
   mounted () {
+    this.getAllUnits()
     this.getUsername()
   },
   methods: {
@@ -79,17 +80,33 @@ export default {
         this.username = window.localStorage.getItem('username')
       } else { this.exit() }
     },
-    showModal (item) {
-      this.$refs.modal.showModal(item)
+    modalDeposit (item) {
+      this.$refs.modal_d.modalDeposit(item)
+    },
+    modalWithdraw (item) {
+      this.getUnit(item)
     },
     exit () {
       window.localStorage.clear()
       this.$router.push('/')
     },
-    async getLocker () {
-      const data = await this.$axios.$get(`${this.$config.baseURL}/api/v1/units`)
-      console.log(data.result)
-      this.units = data.result
+    getAllUnits () {
+      this.$axios.$get(`${this.$config.baseURL}/api/v1/units`).then((response) => {
+        this.units = response.result
+      })
+        .catch((error) => {
+          alert(error.response.data.message)
+        })
+    },
+    getUnit (item) {
+      // const data = await this.$axios.$get(`${this.$config.baseURL}/api/v1/unit?id=` + item._id + '&username=' + this.username)
+      this.$axios.$get(`${this.$config.baseURL}/api/v1/unit?id=` + item._id + '&username=' + this.username).then((response) => {
+        this.$store.commit('setUnit', response.result)
+        this.$refs.modal_w.modalWithdraw()
+      })
+        .catch((error) => {
+          alert(error.response.data.message)
+        })
     }
   }
 }
@@ -101,9 +118,5 @@ export default {
 }
 .btn-exit{
   width: 90px;
-}
-.vc{
-  display: flex;
-  align-items: center;
 }
 </style>

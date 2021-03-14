@@ -6,7 +6,10 @@
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300&family=Roboto&display=swap');
-
+.vc{
+  display: flex;
+  align-items: center;
+}
 .kanit{
   font-family: 'Kanit', sans-serif;
 }
