@@ -21,7 +21,7 @@
                 <b-form-invalid-feedback
                   id="input-1-live-feedback"
                 >
-                  This is a required field and must be at least 3 characters.
+                  This is a required field and must be at least 1 characters.
                 </b-form-invalid-feedback>
               </b-form-group>
               <b-button variant="outline-success mt-3" type="submit">
@@ -37,7 +37,7 @@
 
 <script>
 import { validationMixin } from 'vuelidate'
-import { required, minLength } from 'vuelidate/lib/validators'
+import { required } from 'vuelidate/lib/validators'
 export default {
   mixins: [validationMixin],
   data () {
@@ -50,8 +50,7 @@ export default {
   validations: {
     form: {
       name: {
-        required,
-        minLength: minLength(3)
+        required
       }
     }
   },
