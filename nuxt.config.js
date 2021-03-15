@@ -4,7 +4,7 @@ export default {
    */
 
   publicRuntimeConfig: {
-    baseURL: 'http://127.0.0.1:3333'
+    baseURL: 'https://coin-locker-api.herokuapp.com'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -43,8 +43,16 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/bootstrap
     'bootstrap-vue/nuxt',
-    '@nuxtjs/axios'
+    '@nuxtjs/axios',
+    'nuxt-socket-io'
   ],
+  io: {
+    // module options
+    sockets: [{
+      name: 'home',
+      url: 'http://127.0.0.1:3333'
+    }]
+  },
   axios: {
     // proxy: true
     // BaseURL: 'http://127.0.0.1:3333/'
