@@ -1,34 +1,33 @@
 <template>
   <div class="container kanit">
     <div>
-      <Logo />
-      <h1 class="title">
-        Welcome to coin locker
-      </h1>
-      <div class="links">
-        <div class="row justify-content-center">
-          <div class="col-3">
-            <b-form @submit.stop.prevent="onSubmit">
-              <b-form-group id="name">
-                <b-form-input
-                  id="name"
-                  v-model="$v.form.name.$model"
-                  placeholder="Input your name"
-                  name="name"
-                  :state="validateState('name')"
-                  aria-describedby="input-1-live-feedback"
-                />
-                <b-form-invalid-feedback
-                  id="input-1-live-feedback"
-                >
-                  This is a required field and must be at least 1 characters.
-                </b-form-invalid-feedback>
-              </b-form-group>
-              <b-button variant="outline-success mt-3" type="submit">
-                Go to Locker
-              </b-button>
-            </b-form>
-          </div>
+      <!-- <Logo /> -->
+      <img src="~/assets/coin.png" width="200" height="186">
+      <div class="text-index">
+        Welcome to Coinlocker
+      </div>
+      <div class="d-flex justify-content-center">
+        <div class="col-9">
+          <b-form @submit.stop.prevent="onSubmit">
+            <b-form-group id="name">
+              <b-form-input
+                id="name"
+                v-model="$v.form.name.$model"
+                placeholder="Input your name"
+                name="name"
+                :state="validateState('name')"
+                aria-describedby="input-1-live-feedback"
+              />
+              <b-form-invalid-feedback
+                id="input-1-live-feedback"
+              >
+                This is a required field and must be at least 1 characters.
+              </b-form-invalid-feedback>
+            </b-form-group>
+            <b-button variant="outline-success mt-3" type="submit">
+              Go to Locker
+            </b-button>
+          </b-form>
         </div>
       </div>
     </div>
@@ -80,6 +79,11 @@ export default {
   justify-content: center;
   align-items: center;
   text-align: center;
+}
+
+.text-index{
+  font-size: 50px;
+  font-weight: bold;
 }
 
 .title {
