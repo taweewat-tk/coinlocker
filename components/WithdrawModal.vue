@@ -54,6 +54,7 @@
     :title="modal_title"
     title-class="text-center bold kanit"
     @ok="onSubmit"
+    @hide="onCancel"
   >
     <div class="row justify-content-center kanit">
       <b-form class="col-11" @submit="onSubmit">
@@ -173,6 +174,9 @@ export default {
     onSubmit () {
       this.putWithdraw()
     },
+    onCancel () {
+      this.$emit('response', true)
+    },
     putWithdraw () {
       this.$store.commit('setLoading', true)
       this.$axios.$put(`${this.$config.baseURL}/api/v1/units/withdraw?id=${this.unit._id}`, {
@@ -180,7 +184,7 @@ export default {
       }).then((response) => {
         this.$store.commit('setLoading', false)
         alert(response.message)
-        this.$emit('response')
+        this.$emit('response', true)
       }).catch((error) => {
         this.$store.commit('setLoading', false)
         alert(error.response.data.message)

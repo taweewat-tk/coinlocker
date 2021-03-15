@@ -199,6 +199,7 @@ export default {
           alert(error.response.data.message)
         })
       }
+      this.$emit('response', true)
     },
     onSubmit (event) {
       this.form.hours = this.form.hours ? this.form.hours : 0
@@ -241,7 +242,7 @@ export default {
       }).then((response) => {
         this.$store.commit('setLoading', false)
         alert(response.message)
-        this.$emit('response')
+        this.$emit('response', true)
       }).catch((error) => {
         this.$store.commit('setLoading', false)
         alert(error.response.data.message)

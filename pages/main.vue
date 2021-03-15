@@ -35,6 +35,7 @@ export default {
   name: 'Main',
   data () {
     return {
+      interval: null,
       username: '',
       units: [],
       unit_detail: {},
@@ -53,6 +54,7 @@ export default {
       } else { this.exit() }
     },
     modalDeposit (item) {
+      clearInterval(this.interval)
       this.$store.commit('setLoading', true)
       this.$axios.$put(`${this.$config.baseURL}/api/v1/units/reserve?id=${item._id}`, {
         username: this.username
@@ -65,6 +67,7 @@ export default {
       })
     },
     modalWithdraw (item) {
+      clearInterval(this.interval)
       this.getUnit(item)
     },
     exit () {
@@ -72,10 +75,11 @@ export default {
       this.$router.push('/')
     },
     getAllUnits () {
+      console.log('response')
       this.$store.commit('setLoading', true)
       this.$axios.$get(`${this.$config.baseURL}/api/v1/units`).then((response) => {
         this.units = response.result
-        setInterval(() => { this.startShortPolling() }, 4000)
+        this.interval = setInterval(() => { this.startShortPolling() }, 4000)
         this.$store.commit('setLoading', false)
       }).catch((error) => {
         this.$store.commit('setLoading', false)

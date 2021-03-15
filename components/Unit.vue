@@ -44,7 +44,16 @@
 <script>
 export default {
   name: 'Unit',
-  props: ['unitInfo', 'username'],
+  props: {
+    unitInfo: {
+      type: Object,
+      default: null
+    },
+    username: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       unit_detail: ''
