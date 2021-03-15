@@ -45,7 +45,7 @@ export default {
       if (this.unit.cost) {
         return this.unit.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       }
-      return ''
+      return 0
     },
     table_data () {
       let cost = this.unit.cost

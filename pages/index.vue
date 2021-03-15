@@ -1,7 +1,6 @@
 <template>
   <div class="container kanit">
     <div>
-      <!-- <Logo /> -->
       <img src="~/assets/coin.png" width="200" height="186">
       <div class="text-index">
         Welcome to Coinlocker
@@ -84,35 +83,5 @@ export default {
 .text-index{
   font-size: 50px;
   font-weight: bold;
-}
-
-.title {
-  font-family:
-    'Quicksand',
-    'Source Sans Pro',
-    -apple-system,
-    BlinkMacSystemFont,
-    'Segoe UI',
-    Roboto,
-    'Helvetica Neue',
-    Arial,
-    sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
 }
 </style>
