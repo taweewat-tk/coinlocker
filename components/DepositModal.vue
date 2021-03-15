@@ -203,7 +203,6 @@ export default {
       this.postUnit(this.form)
     },
     onReset (event) {
-    //   event.preventDefault()
       this.form = {
         hours: null,
         minutes: null,
@@ -215,14 +214,20 @@ export default {
         this.$v.$reset()
       })
     },
-    async postUnit (form) {
-      const data = await this.$axios.$put(`${this.$config.baseURL}/api/v1/units/deposit?id=${this.unit._id}`, {
+    postUnit (form) {
+      this.$store.dispatch('loading', true)
+      this.$axios.$put(`${this.$config.baseURL}/api/v1/units/deposit?id=${this.unit._id}`, {
         cost: form.amount,
         summary_minutes: this.summaryMinutes,
         username: this.username
+      }).then((response) => {
+        this.$store.dispatch('loading', false)
+        alert(response.message)
+        this.$emit('response')
+      }).catch((error) => {
+        this.$store.dispatch('loading', false)
+        alert(error.response.data.message)
       })
-      alert(data.message)
-      this.$emit('response')
     }
   }
 }

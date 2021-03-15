@@ -165,19 +165,21 @@ export default {
       this.modal_title = 'Withdraw - ' + this.unit.name
       this.$root.$emit('bv::show::modal', 'modal_withdraw')
     },
-    onSubmit (event) {
+    onSubmit () {
       this.putWithdraw()
     },
     putWithdraw () {
+      this.$store.dispatch('loading', true)
       this.$axios.$put(`${this.$config.baseURL}/api/v1/units/withdraw?id=${this.unit._id}`, {
         username: this.username
       }).then((response) => {
+        this.$store.dispatch('loading', false)
         alert(response.message)
         this.$emit('response')
+      }).catch((error) => {
+        this.$store.dispatch('loading', false)
+        alert(error.response.data.message)
       })
-        .catch((error) => {
-          alert(error.response.data.message)
-        })
     }
   }
 }

@@ -64,9 +64,8 @@ export default {
       if (this.$v.form.$anyError) {
         return
       }
-      // this.$auth.$storage.setUniversal('username', this.form.name)
       window.localStorage.setItem('username', this.form.name)
-      // sessionStorage.setItem('username', this.form.name)
+      this.$store.dispatch('loading', true)
       this.$router.push('/main')
     }
   }

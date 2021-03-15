@@ -41,18 +41,7 @@ export default {
       modal: false
     }
   },
-  created () {
-  },
   mounted () {
-    // this.socket = this.$nuxtSocket({
-    //   name: 'home', // Use socket "home"
-    //   channel: '/chat',
-    //   reconnection: false
-    // })
-    // // /* Listen for events: */
-    // this.socket.on('announcements', (msg, cb) => {
-    //   console.log('test')
-    // })
     this.getAllUnits()
     this.getUsername()
   },
@@ -74,22 +63,26 @@ export default {
       this.$router.push('/')
     },
     getAllUnits () {
+      this.$store.dispatch('loading', true)
       this.$axios.$get(`${this.$config.baseURL}/api/v1/units`).then((response) => {
         this.units = response.result
+        this.$store.dispatch('loading', false)
+      }).catch((error) => {
+        this.$store.dispatch('loading', false)
+        alert(error.response.data.message)
       })
-        .catch((error) => {
-          alert(error.response.data.message)
-        })
     },
     getUnit (item) {
-      // const data = await this.$axios.$get(`${this.$config.baseURL}/api/v1/unit?id=` + item._id + '&username=' + this.username)
-      this.$axios.$get(`${this.$config.baseURL}/api/v1/unit?id=` + item._id + '&username=' + this.username).then((response) => {
+      this.$store.dispatch('loading', true)
+      this.$axios.$get(`${this.$config.baseURL}/api/v1/unit?id=` + item._id + '&username=' + this.username
+      ).then((response) => {
         this.$store.commit('setUnit', response.result)
+        this.$store.dispatch('loading', false)
         this.$refs.modal_w.modalWithdraw()
+      }).catch((error) => {
+        this.$store.dispatch('loading', false)
+        alert(error.response.data.message)
       })
-        .catch((error) => {
-          alert(error.response.data.message)
-        })
     }
   }
 }

@@ -1,6 +1,9 @@
 <template>
-  <div class="container" style="padding-bottom:1rem;">
-    <Nuxt />
+  <div style="padding-bottom:1rem;">
+    <Loader />
+    <div class="container">
+      <Nuxt />
+    </div>
   </div>
 </template>
 
