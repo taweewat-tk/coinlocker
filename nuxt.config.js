@@ -5,6 +5,7 @@ export default {
 
   publicRuntimeConfig: {
     baseURL: 'http://127.0.0.1:3333'
+    // baseURL: 'https://coin-locker-api.herokuapp.com'
   },
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
