@@ -14,6 +14,7 @@
         <b-form-group id="input-group-1" label="Duration time to deposit:" label-for="minutes">
           <div class="d-flex vc">
             <div>
+              <!-- hours -->
               <b-form-input
                 id="hours"
                 v-model="$v.form.hours.$model"
@@ -54,7 +55,7 @@
             @keydown="onKeyDown"
           />
           <div v-if="text_alert == true" class="invalid-text">
-            Cost must be more than {{ numberWithCommas }} Bath
+            Cost must be more than {{ fixCostWithCommas }} Bath
           </div>
         </b-form-group>
       </b-form>
@@ -101,9 +102,7 @@ export default {
   },
   validations: {
     form: {
-      hours: {
-
-      },
+      hours: {},
       minutes: {
         required
       },
@@ -113,7 +112,7 @@ export default {
     }
   },
   computed: {
-    numberWithCommas () {
+    fixCostWithCommas () {
       if (this.fix_cost) {
         return this.fix_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       }
@@ -221,7 +220,7 @@ export default {
       }
       this.postUnit(this.form)
     },
-    onReset (event) {
+    onReset () {
       this.form = {
         hours: null,
         minutes: null,

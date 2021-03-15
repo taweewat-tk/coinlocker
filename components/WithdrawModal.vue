@@ -1,52 +1,4 @@
 <template>
-  <!-- <b-modal
-    id="modal_withdraw"
-    centered
-    size="md"
-    :title="modal_title"
-    title-class="text-center bold kanit"
-    @show="onReset"
-    @hidden="onReset"
-    @ok="onSubmit"
-  >
-    <div class="row justify-content-center kanit">
-      <b-form class="col-11" @submit="onSubmit" @reset="onReset">
-        <b-form-group id="input-group-1" :label="status" label-for="minutes">
-          <div class="d-flex vc">
-            <div class="">
-              <b-form-input
-                id="hours"
-                v-model="unit.hours"
-                style="width:140px;"
-                disabled
-              />
-            </div>
-            <div class="px-2">
-              hours
-            </div>
-            <div class="">
-              <b-form-input
-                id="minutes"
-                v-model="unit.minutes"
-                disabled
-              />
-            </div>
-            <div class="pl-2">
-              minutes
-            </div>
-          </div>
-        </b-form-group>
-        <b-form-group id="input-group-2" :label="cost_status" label-for="amount">
-          <b-form-input
-            id="amount"
-            v-model="unit.cost"
-            name="amount"
-            disabled
-          />
-        </b-form-group>
-      </b-form>
-    </div>
-  </b-modal> -->
   <b-modal
     id="modal_withdraw"
     centered
@@ -61,7 +13,7 @@
         <b-form-group id="input-group-2">
           <div class="d-flex vc" style="width:100%;">
             <div class="pr-2">
-              Refund: {{ unit.cost }} Bath
+              Refund: {{ costWithCommas }} Bath
             </div>
           </div>
         </b-form-group>
@@ -84,13 +36,14 @@ export default {
   },
   data () {
     return {
-      modal_title: ''
+      modal_title: '',
+      summaryCost: ''
     }
   },
   computed: {
-    numberWithCommas () {
-      if (this.fix_cost) {
-        return this.fix_cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+    costWithCommas () {
+      if (this.unit.cost) {
+        return this.unit.cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')
       }
       return ''
     },
@@ -141,20 +94,6 @@ export default {
     },
     unit () {
       return this.$store.getters.getUnit
-    },
-    status () {
-      if (this.unit.is_over === true) {
-        return 'Overtime:'
-      } else {
-        return 'Time left:'
-      }
-    },
-    cost_status () {
-      if (this.unit.is_over === true) {
-        return 'Fines:'
-      } else {
-        return 'Refund:'
-      }
     }
   },
   methods: {

@@ -54,15 +54,7 @@ export default {
       default: ''
     }
   },
-  data () {
-    return {
-      unit_detail: ''
-    }
-  },
-  created () {
-  },
   methods: {
-    // emit data to call function of parent component
     modal (type) {
       if (type === 'Deposit') { this.$emit('modalDeposit', this.unitInfo) } else {
         this.$emit('modalWithdraw', this.unitInfo)

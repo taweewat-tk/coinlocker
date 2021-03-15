@@ -47,7 +47,6 @@ export default {
     this.getUsername()
   },
   methods: {
-    // Pass data to child modal component
     getUsername () {
       if (window.localStorage.getItem('username')) {
         this.username = window.localStorage.getItem('username')
@@ -71,11 +70,11 @@ export default {
       this.getUnit(item)
     },
     exit () {
+      clearInterval(this.interval)
       window.localStorage.clear()
       this.$router.push('/')
     },
     getAllUnits () {
-      console.log('response')
       this.$store.commit('setLoading', true)
       this.$axios.$get(`${this.$config.baseURL}/api/v1/units`).then((response) => {
         this.units = response.result
@@ -99,7 +98,7 @@ export default {
       })
     },
     async startShortPolling () {
-      const data = await this.$axios.$get(`${this.$config.baseURL}/api/v1/units`) // รอให้ดึงข้อมูลเสร็จก่อน ค่อยรออีก 3 วินาที
+      const data = await this.$axios.$get(`${this.$config.baseURL}/api/v1/units`) // short time polling
       this.units = data.result
     }
   }
