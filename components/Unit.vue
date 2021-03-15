@@ -1,19 +1,4 @@
 <template>
-  <!-- <b-card
-    :header="unitInfo.size"
-    header-tag="header"
-    footer="Card Footer"
-    footer-tag="footer"
-    :title="unitInfo.name"
-  >
-    {{lockerInfo}}
-    <b-card-text>Header and footers using props.</b-card-text>
-    <b-button href="#" variant="primary">Go somewhere</b-button>
-  </b-card>-->
-  <!-- <b-card :bg-variant="unitInfo.status" text-variant="white" header="Success" class="text-center">
-    <b-card-text>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</b-card-text>
-    <b-button href="#" variant="primary">Go somewhere</b-button>
-  </b-card>-->
   <div class="kanit">
     <b-card
       border-variant="primary"
@@ -52,8 +37,6 @@
           Withdraw
         </b-button>
       </div>
-      <!-- <b-button disabled variant="outline-secondary">Used</b-button>
-      <b-button variant="outline-success">Empty</b-button>-->
     </b-card>
   </div>
 </template>

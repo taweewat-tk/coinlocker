@@ -11,21 +11,9 @@
   >
     <div class="row justify-content-center kanit">
       <b-form class="col-11" @submit="onSubmit" @reset="onReset">
-        <!-- <b-form-group id="input-group-1" label="Duration time to deposit (Hours:minutes):" label-for="duration">
-          <input
-            id="duration"
-            v-model="$v.form.duration.$model"
-            name="duration"
-            :state="validateState('duration')"
-            class="form-control"
-            type="time"
-            aria-describedby="input-1-live-feedback"
-            @input="timeToMinutes"
-          >
-        </b-form-group> -->
         <b-form-group id="input-group-1" label="Duration time to deposit:" label-for="minutes">
           <div class="d-flex vc">
-            <div class="">
+            <div>
               <b-form-input
                 id="hours"
                 v-model="$v.form.hours.$model"
@@ -38,7 +26,7 @@
             <div class="px-2">
               hours
             </div>
-            <div class="">
+            <div>
               <!-- minutes -->
               <b-form-input
                 id="minutes"
@@ -68,52 +56,7 @@
           <div v-if="text_alert == true" class="invalid-text">
             Cost must be more than {{ numberWithCommas }} Bath
           </div>
-          <!-- <b-form-invalid-feedback
-            id="input-3-live-feedback"
-          >
-            This is a required.
-          </b-form-invalid-feedback> -->
         </b-form-group>
-
-        <!-- <b-form-group id="input-group-3" label="Coin:">
-          <div class="d-flex" style="justify-content: space-evenly;">
-            <b-button class="btn-money" variant="outline-primary" @click="addMoney(1)">
-              1
-            </b-button>
-            <b-button class="btn-money" variant="outline-primary" @click="addMoney(2)">
-              2
-            </b-button>
-            <b-button class="btn-money" variant="outline-primary" @click="addMoney(5)">
-              5
-            </b-button>
-            <b-button class="btn-money" variant="outline-primary" @click="addMoney(10)">
-              10
-            </b-button>
-          </div>
-        </b-form-group>
-
-        <b-form-group id="input-group-4" label="Bill:">
-          <div class="d-flex justify-content-around">
-            <b-button class="btn-money px-2" variant="outline-primary" @click="addMoney(20)">
-              20
-            </b-button>
-            <b-button class="btn-money px-2" variant="outline-primary" @click="addMoney(50)">
-              50
-            </b-button>
-            <b-button class="btn-money px-2" variant="outline-primary" @click="addMoney(100)">
-              100
-            </b-button>
-            <b-button class="btn-money px-2" variant="outline-primary" @click="addMoney(500)">
-              500
-            </b-button>
-            <b-button class="btn-money px-2" variant="outline-primary" @click="addMoney(1000)">
-              1000
-            </b-button>
-          </div>
-        </b-form-group> -->
-        <!-- <b-button type="reset" variant="danger">
-          Reset
-        </b-button> -->
       </b-form>
     </div>
   </b-modal>
@@ -172,9 +115,6 @@ export default {
       return ''
     }
   },
-  created () {
-
-  },
   methods: {
     onKeyDown (e) {
       if (
@@ -224,14 +164,6 @@ export default {
       this.form.amount = this.form.amount ? this.form.amount : 0
       this.form.amount = Number(this.form.amount) + amount
     },
-    timeToMinutes () {
-      // this.calculateCost((Number(this.form.hours) * 60), Number(this.form.minutes))
-      // if (Number(this.form.hours) === 0) {
-      //   this.calculateCost(60, 0)
-      // } else {
-      //   this.calculateCost((Number(this.form.hours) * 60), Number(this.form.minutes))
-      // }
-    },
     calculateCost () {
       const hours = this.form.hours ? this.form.hours : 0
       const minutes = this.form.minutes ? this.form.minutes : 0
@@ -249,8 +181,6 @@ export default {
       }
       this.fix_cost = cost
       this.form.amount = cost
-
-      // const cost = ((minHours / 60) * this.unit.rate) + (min * this.unit.rate_next_min)
     },
     onSubmit (event) {
       this.form.hours = this.form.hours ? this.form.hours : 0
@@ -271,10 +201,6 @@ export default {
         return
       }
       this.postUnit(this.form)
-
-      // this.$bvModal.hide('modal1')
-      // this.$refs.modal1.hide()
-      // this.$root.$emit('bv::hide::modal', 'modal1')
     },
     onReset (event) {
     //   event.preventDefault()
@@ -290,9 +216,6 @@ export default {
       })
     },
     async postUnit (form) {
-      console.log('form.amount : ', form.amount)
-      console.log('this.summaryMinutes : ', this.summaryMinutes)
-      console.log('this.username : ', this.username)
       const data = await this.$axios.$put(`${this.$config.baseURL}/api/v1/units/deposit?id=${this.unit._id}`, {
         cost: form.amount,
         summary_minutes: this.summaryMinutes,
@@ -301,13 +224,6 @@ export default {
       alert(data.message)
       this.$emit('response')
     }
-    // formatTime (_time) {
-    //   const time = new Date(_time)
-    //   const timeStr =
-    //   ('00' + time.getHours()).slice(-2) + ':' +
-    //   ('00' + time.getMinutes()).slice(-2) + ':00'
-    //   return timeStr
-    // }
   }
 }
 </script>

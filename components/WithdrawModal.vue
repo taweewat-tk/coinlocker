@@ -53,12 +53,10 @@
     size="md"
     :title="modal_title"
     title-class="text-center bold kanit"
-    @show="onReset"
-    @hidden="onReset"
     @ok="onSubmit"
   >
     <div class="row justify-content-center kanit">
-      <b-form class="col-11" @submit="onSubmit" @reset="onReset">
+      <b-form class="col-11" @submit="onSubmit">
         <b-form-group id="input-group-2">
           <div class="d-flex vc" style="width:100%;">
             <div class="pr-2">
@@ -92,7 +90,6 @@ export default {
     },
     table_data () {
       let cost = this.unit.cost
-      console.log(cost)
       const tableArr = []
       if (cost >= 1000) {
         const obj = this.calulate_cost(cost, 1000)
@@ -154,10 +151,6 @@ export default {
       }
     }
   },
-  created () {
-  },
-  mounted () {
-  },
   methods: {
     calulate_cost (cost, rate) {
       const calulate = parseInt(cost / rate)
@@ -174,13 +167,6 @@ export default {
     },
     onSubmit (event) {
       this.putWithdraw()
-
-      // this.$bvModal.hide('modal1')
-      // this.$refs.modal1.hide()
-      // this.$root.$emit('bv::hide::modal', 'modal1')
-    },
-    onReset (event) {
-    //   event.preventDefault()
     },
     putWithdraw () {
       this.$axios.$put(`${this.$config.baseURL}/api/v1/units/withdraw?id=${this.unit._id}`, {
@@ -193,13 +179,6 @@ export default {
           alert(error.response.data.message)
         })
     }
-    // formatTime (_time) {
-    //   const time = new Date(_time)
-    //   const timeStr =
-    //   ('00' + time.getHours()).slice(-2) + ':' +
-    //   ('00' + time.getMinutes()).slice(-2) + ':00'
-    //   return timeStr
-    // }
   }
 }
 </script>

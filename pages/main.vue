@@ -42,34 +42,17 @@ export default {
     }
   },
   created () {
-    // for (let i = 0; i < 12; i++) {
-    //   let obj
-    //   if (i === 0 || i === 3 || i === 6 || i === 9) {
-    //     obj = {
-    //       name: 'Unit #' + (i + 1),
-    //       size: 'S',
-    //       color: 'success', // empty
-    //       status: 'Available'
-    //     }
-    //   } else if (i === 1 || i === 4 || i === 7 || i === 10) {
-    //     obj = {
-    //       name: 'Unit #' + (i + 1),
-    //       size: 'M',
-    //       color: 'secondary', // used
-    //       status: 'Unavailable'
-    //     }
-    //   } else {
-    //     obj = {
-    //       name: 'Unit #' + (i + 1),
-    //       size: 'L',
-    //       color: 'warning', // selected
-    //       status: 'Unavailable'
-    //     }
-    //   }
-    //   this.units.push(obj)
-    // }
   },
   mounted () {
+    // this.socket = this.$nuxtSocket({
+    //   name: 'home', // Use socket "home"
+    //   channel: '/chat',
+    //   reconnection: false
+    // })
+    // // /* Listen for events: */
+    // this.socket.on('announcements', (msg, cb) => {
+    //   console.log('test')
+    // })
     this.getAllUnits()
     this.getUsername()
   },
