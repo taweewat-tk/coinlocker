@@ -41,7 +41,7 @@ export default {
       modal: false
     }
   },
-  mounted () {
+  beforeMount () {
     this.getAllUnits()
     this.getUsername()
   },
@@ -53,7 +53,16 @@ export default {
       } else { this.exit() }
     },
     modalDeposit (item) {
-      this.$refs.modal_d.modalDeposit(item)
+      this.$store.commit('setLoading', true)
+      this.$axios.$put(`${this.$config.baseURL}/api/v1/units/reserve?id=${item._id}`, {
+        username: this.username
+      }).then((response) => {
+        this.$store.commit('setLoading', false)
+        this.$refs.modal_d.modalDeposit(item)
+      }).catch((error) => {
+        this.$store.commit('setLoading', false)
+        alert(error.response.data.message)
+      })
     },
     modalWithdraw (item) {
       this.getUnit(item)
@@ -63,26 +72,31 @@ export default {
       this.$router.push('/')
     },
     getAllUnits () {
-      this.$store.dispatch('loading', true)
+      this.$store.commit('setLoading', true)
       this.$axios.$get(`${this.$config.baseURL}/api/v1/units`).then((response) => {
         this.units = response.result
-        this.$store.dispatch('loading', false)
+        setInterval(() => { this.startShortPolling() }, 4000)
+        this.$store.commit('setLoading', false)
       }).catch((error) => {
-        this.$store.dispatch('loading', false)
+        this.$store.commit('setLoading', false)
         alert(error.response.data.message)
       })
     },
     getUnit (item) {
-      this.$store.dispatch('loading', true)
+      this.$store.commit('setLoading', true)
       this.$axios.$get(`${this.$config.baseURL}/api/v1/unit?id=` + item._id + '&username=' + this.username
       ).then((response) => {
         this.$store.commit('setUnit', response.result)
-        this.$store.dispatch('loading', false)
+        this.$store.commit('setLoading', false)
         this.$refs.modal_w.modalWithdraw()
       }).catch((error) => {
-        this.$store.dispatch('loading', false)
+        this.$store.commit('setLoading', false)
         alert(error.response.data.message)
       })
+    },
+    async startShortPolling () {
+      const data = await this.$axios.$get(`${this.$config.baseURL}/api/v1/units`) // รอให้ดึงข้อมูลเสร็จก่อน ค่อยรออีก 3 วินาที
+      this.units = data.result
     }
   }
 }

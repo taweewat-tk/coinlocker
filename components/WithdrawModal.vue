@@ -75,7 +75,12 @@
 <script>
 export default {
   name: 'WithdrawModal',
-  props: ['modal', 'username'],
+  props: {
+    username: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       modal_title: ''
@@ -169,15 +174,15 @@ export default {
       this.putWithdraw()
     },
     putWithdraw () {
-      this.$store.dispatch('loading', true)
+      this.$store.commit('setLoading', true)
       this.$axios.$put(`${this.$config.baseURL}/api/v1/units/withdraw?id=${this.unit._id}`, {
         username: this.username
       }).then((response) => {
-        this.$store.dispatch('loading', false)
+        this.$store.commit('setLoading', false)
         alert(response.message)
         this.$emit('response')
       }).catch((error) => {
-        this.$store.dispatch('loading', false)
+        this.$store.commit('setLoading', false)
         alert(error.response.data.message)
       })
     }

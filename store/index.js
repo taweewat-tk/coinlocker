@@ -41,9 +41,3 @@ export const getters = {
     return state.loading
   }
 }
-
-export const actions = {
-  loading ({ commit }, isLoading) {
-    commit('setLoading', isLoading)
-  }
-}

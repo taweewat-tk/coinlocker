@@ -1,5 +1,5 @@
 <template>
-  <div v-if="isLoading" class="loading justify-content-center vc">
+  <div v-show="isLoading" class="loading justify-content-center vc">
     <div class="lds-ring">
       <div /><div /><div /><div />
     </div>

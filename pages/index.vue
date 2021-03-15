@@ -65,7 +65,7 @@ export default {
         return
       }
       window.localStorage.setItem('username', this.form.name)
-      this.$store.dispatch('loading', true)
+      this.$store.commit('setLoading', true)
       this.$router.push('/main')
     }
   }

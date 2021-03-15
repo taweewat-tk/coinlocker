@@ -6,7 +6,7 @@
     :title="modal_title"
     title-class="text-center bold kanit"
     @show="onReset"
-    @hidden="onReset"
+    @hide="onCancel"
     @ok="onSubmit"
   >
     <div class="row justify-content-center kanit">
@@ -68,7 +68,12 @@ import { required } from 'vuelidate/lib/validators'
 export default {
   name: 'DepositModal',
   mixins: [validationMixin],
-  props: ['modal', 'username'],
+  props: {
+    username: {
+      type: String,
+      default: ''
+    }
+  },
   data () {
     return {
       modal_title: '',
@@ -182,6 +187,19 @@ export default {
       this.fix_cost = cost
       this.form.amount = cost
     },
+    onCancel (event) {
+      if (event.trigger !== 'ok') {
+        this.$store.commit('setLoading', true)
+        this.$axios.$put(`${this.$config.baseURL}/api/v1/units/cancel?id=${this.unit._id}`, {
+          username: this.username
+        }).then((response) => {
+          this.$store.commit('setLoading', false)
+        }).catch((error) => {
+          this.$store.commit('setLoading', false)
+          alert(error.response.data.message)
+        })
+      }
+    },
     onSubmit (event) {
       this.form.hours = this.form.hours ? this.form.hours : 0
       this.form.minutes = this.form.minutes ? this.form.minutes : 0
@@ -215,17 +233,17 @@ export default {
       })
     },
     postUnit (form) {
-      this.$store.dispatch('loading', true)
+      this.$store.commit('setLoading', true)
       this.$axios.$put(`${this.$config.baseURL}/api/v1/units/deposit?id=${this.unit._id}`, {
         cost: form.amount,
         summary_minutes: this.summaryMinutes,
         username: this.username
       }).then((response) => {
-        this.$store.dispatch('loading', false)
+        this.$store.commit('setLoading', false)
         alert(response.message)
         this.$emit('response')
       }).catch((error) => {
-        this.$store.dispatch('loading', false)
+        this.$store.commit('setLoading', false)
         alert(error.response.data.message)
       })
     }
