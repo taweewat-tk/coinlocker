@@ -122,7 +122,10 @@ export default {
   font-size: 45px;
 }
 .welcome {
-  margin-top:-48px;
+  margin-top:-50px;
+}
+.img{
+  display: block;
 }
 @media only screen and (max-width: 768px) {
   .header {
@@ -134,15 +137,22 @@ export default {
     align-items: center;
     justify-content: left;
   }
+  .welcome {
+    margin-top: -42px;
+  }
+  .img{
+    display: none;
+  }
 }
 @media only screen and (max-width: 468px) {
   .header {
     text-align: left;
     font-size: 27px;
     margin-top: 10px;
+    display: none;
   }
   .welcome {
-    margin-top: -38px;
+    margin-top: -45px;
   }
   .vertical-middle-center{
     display: flex;
@@ -150,7 +160,7 @@ export default {
     justify-content: left;
   }
   .img{
-    display: none;
+    display: block;
   }
 }
 </style>
