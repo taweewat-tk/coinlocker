@@ -85,7 +85,7 @@ export default {
       this.$axios.$get(`${this.$config.baseURL}/api/v1/units`).then((response) => {
         this.units = response.result
         if (this.isCallInterval === false) {
-          this.interval = setInterval(() => { this.startShortPolling() }, 4000)
+          this.interval = setInterval(() => { this.startShortPolling() }, 2000)
           this.$store.commit('setInterval', true)
         }
         this.$store.commit('setLoading', false)
