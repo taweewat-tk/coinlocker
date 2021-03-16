@@ -1,5 +1,6 @@
 export const state = () => ({
   loading: false,
+  interval: false,
   unit: {
     cost: 0,
     is_over: false,
@@ -18,6 +19,9 @@ export const mutations = {
   },
   setLoading (state, payload) {
     state.loading = payload
+  },
+  setInterval (state, payload) {
+    state.interval = payload
   }
 }
 
@@ -27,5 +31,8 @@ export const getters = {
   },
   isLoading (state) {
     return state.loading
+  },
+  isInterval (state) {
+    return state.interval
   }
 }
