@@ -77,6 +77,7 @@ export default {
     },
     exit () {
       clearInterval(this.interval)
+      this.$store.commit('setInterval', false)
       window.localStorage.clear()
       this.$router.push('/')
     },
