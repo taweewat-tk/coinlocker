@@ -19,7 +19,6 @@
                 id="hours"
                 v-model="$v.form.hours.$model"
                 placeholder="hours"
-                style="width:140px;"
                 @keydown="onKeyDown"
                 @input="calculateCost"
               />
