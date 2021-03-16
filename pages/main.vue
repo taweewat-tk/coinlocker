@@ -45,6 +45,11 @@ export default {
       modal: false
     }
   },
+  computed: {
+    isCallInterval () {
+      return this.$store.getters.isInterval
+    }
+  },
   beforeMount () {
     this.getAllUnits()
     this.getUsername()
@@ -56,7 +61,6 @@ export default {
       } else { this.exit() }
     },
     modalDeposit (item) {
-      clearInterval(this.interval)
       this.$store.commit('setLoading', true)
       this.$axios.$put(`${this.$config.baseURL}/api/v1/units/reserve?id=${item._id}`, {
         username: this.username
@@ -69,7 +73,6 @@ export default {
       })
     },
     modalWithdraw (item) {
-      clearInterval(this.interval)
       this.getUnit(item)
     },
     exit () {
@@ -81,7 +84,10 @@ export default {
       this.$store.commit('setLoading', true)
       this.$axios.$get(`${this.$config.baseURL}/api/v1/units`).then((response) => {
         this.units = response.result
-        this.interval = setInterval(() => { this.startShortPolling() }, 4000)
+        if (this.isCallInterval === false) {
+          this.interval = setInterval(() => { this.startShortPolling() }, 4000)
+          this.$store.commit('setInterval', true)
+        }
         this.$store.commit('setLoading', false)
       }).catch((error) => {
         this.$store.commit('setLoading', false)
